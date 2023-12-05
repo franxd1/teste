@@ -12,7 +12,7 @@
 typedef struct {
     char hospede[30];
 } hotel;
-
+ 
 void inicializarHotel(hotel nomedoHotel[], int tamanho) {
     for (int i = 0; i < tamanho; i++) {
         nomedoHotel[i].hospede[0] = '\0';
