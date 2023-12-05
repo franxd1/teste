@@ -2,11 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <unistd.h>
-#endif
 #define quantidadeDEQuartos 30
 
 typedef struct {
@@ -33,14 +28,13 @@ void inserirHospede(hotel nomedoHotel[], int numeroQuarto) {
         printf("Quarto já ocupado. Escolha outro quarto.\n");
     }
     
-        gerartxt(nomedoHotel, numeroQuarto);
+
 }
 void listarHospedes(hotel nomedoHotel[]) {
     printf("Lista de hóspede:\n");
     for (int i = 0; i < 30; i++) {
         if (nomedoHotel[i].hospede[0] != '\0') {
             printf("Quarto %d: %s\n", i + 1, nomedoHotel[i].hospede);
-            gerartxt(nomedoHotel,i );
         }
     }
     system("pause");
@@ -123,30 +117,18 @@ void quartosDisponiveis(hotel nomedoHotel[]) {
     system("pause");
     system("cls");
 }
-void gerartxt(hotel nomedoHotel[], int numeroQuartos) {
+void gerartxt(hotel nomedoHotel[]) {
     FILE *pfile;
-   
-    pfile = fopen("C:\\Users\\55619\\Desktop\\pasta2\\texto", "a+");
-    
-    if (pfile != NULL) {
-        fprintf(pfile, "Quarto:%d.", numeroQuartos);
-
-        for (int i = 0; i < numeroQuartos; i++) {
-            fprintf(pfile, "%s", nomedoHotel[i].hospede);
+    pfile = fopen("C:\\Users\\francisco.cabral\\Desktop\\teste\\texto", "w");
+    for (int i = 0; i < 30; i++) {
+        if (nomedoHotel[i].hospede[0] != '\0') {
+            fprintf(pfile,"Quarto %d: %s\n", i + 1, nomedoHotel[i].hospede);
         }
-        fprintf(pfile,"\n");
-        fclose(pfile);
-    
-       return 1;
-    } else {
-        printf("Erro ao abrir o arquivo.\n");
     }
+    fclose(pfile);
+    system("pause");
+  
 }
-
-   
-
-
-
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
@@ -206,13 +188,8 @@ int main() {
                 quartosDisponiveis(transilvania);
                 break;
             case 7:
-                printf("ARQUIVO GERADO COM SUCESSO!!"); 
-                 #ifdef _WIN32
-    Sleep(1000); 
-    sleep(3);     // Espera por 3 segundos
-    #endif
                 system("cls");
-          
+                gerartxt(transilvania);
                 break;
             case 0:
                 printf("Saindo do programa. Até logo!\n");
